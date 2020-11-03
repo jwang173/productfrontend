@@ -25,7 +25,7 @@ export const searchProduct = (productName, token) => {
     return dispatch => {
         dispatch( searchProductStart() );
         const queryParams = '?auth='+ token +'&productBy="productName"&equalTo="' + productName+ '"'
-        axios.get('/products.json?'+ queryParams)
+        axios.get('/product.json?'+ queryParams)
             .then( response => {
                 // const searchProductList = [];
                 // for(let key in response.data) {
