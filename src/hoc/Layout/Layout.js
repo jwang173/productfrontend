@@ -6,6 +6,7 @@ import classes from './Layout.css';
 import Toolbar from '../../components/Navigation/Toolbar/Toolbar';
 import SideDrawer from '../../components/Navigation/SideDrawer/SideDrawer';
 import FilterPage from '../../components/Product/FilterPage/FilterPage'
+import ProductFilter from '../../containers/ProductFilter/ProductFilter';
 
 class Layout extends Component {
     state = {
@@ -32,7 +33,7 @@ class Layout extends Component {
                     isAuth={this.props.isAuthenticated}
                     open={this.state.showSideDrawer}
                     closed={this.sideDrawerClosedHandler} />
-                <FilterPage />
+                {/* <ProductFilter /> */}
                 <main className={classes.Content}>
                     {this.props.children}
                 </main>

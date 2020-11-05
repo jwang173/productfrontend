@@ -3,7 +3,13 @@ import userData from '../../../datasource/UserData';
 import productData from '../../../datasource/ProductData';
 
 import Aux from '../../../hoc/Aux2/Aux2';
+import classes from './FilterPage.css'
 
+// const FilterPage = (props) => {
+//     <div>
+//         <span>{props.label}</span> {props.content}
+//     </div>
+// }
 class FilterPage extends Component {
     
     componentWillUpdate() {
@@ -21,7 +27,7 @@ class FilterPage extends Component {
         // console.log(len);
         // let keyLen = Object.keys(Arr[0]).length;
         let keys = Object.keys(Arr[0]);
-        console.log(keys);
+        // console.log(keys);
         let res = {};
         for(let i of keys) {
             res[i] = [];
@@ -41,14 +47,14 @@ class FilterPage extends Component {
         for(let i of resKeys) {
             res[i] = Array.from(new Set(res[i]));
         }
-        console.log(res);
+        // console.log(res);
         resKeys = Object.keys(res);
         for(let i of resKeys) {
             if(res[i].length === 0) {
                 delete res[i];
             }
         }
-        console.log(res);
+        // console.log(res);
         return res
     }
 
@@ -58,7 +64,7 @@ class FilterPage extends Component {
         let res = this.Createchoice(productData);
         const Ans = res[titlename].map(prodKey => {
             return <span key = {prodKey}>
-                <input type="radio"  id = {prodKey} name={titlename} value={prodKey} style={{ textTransform: 'capitalize' }} />
+                <input type="radio"  id = {prodKey} name={titlename} value={prodKey}  />
                 <label for={prodKey} style={{ textTransform: 'capitalize' }}>{prodKey}</label>
             </span>
         })

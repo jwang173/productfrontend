@@ -1,0 +1,5 @@
+.FilterPart div {
+    border: 10px;
+    border-color: blue;
+    border-style: dashed;
+}
