@@ -11,6 +11,9 @@ import Auth from './containers/Auth/Auth';
 import Logout from './containers/Auth/Logout/Logout';
 import * as actions from './store/actions/index';
 import ProductDetail from './containers/ProductDetail/ProductDetail';
+import ProductList from './containers/ProductList/ProductList';
+import UserData from './containers/Data/UserData';
+import ProductData from './containers/Data/ProductData';
 
 class App extends Component {
   componentDidMount () {
@@ -24,6 +27,9 @@ class App extends Component {
         <Route path="/auth" component={Auth} />
         <Route path="/" exact component={ProductFilter} />
         <Route path="/detail" component={ProductDetail} />
+        <Route path="/list" component={ProductList} />
+        <Route path="/userdata" component={UserData} />
+        <Route path="/productdata" component={ProductData} />
         <Redirect to="/" />
       </Switch>
     );
@@ -36,6 +42,9 @@ class App extends Component {
           <Route path="/logout" component={Logout} />
           <Route path="/" exact component={ProductFilter} />
           <Route path="/detail" component={ProductDetail} />
+          <Route path="/list" component={ProductList} />
+          <Route path="/userdata" component={UserData} />
+          <Route path="/productdata" component={ProductData} />
           <Redirect to="/" />
         </Switch>
       );
