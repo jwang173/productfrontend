@@ -1,5 +1,27 @@
 import * as actionTypes from './actionTypes';
-import axios from 'axios';
+import axios from '../../axios-orders';
+
+export let getData = () => {
+    let prodList = [];
+    let myHeaders = new Headers({
+        'Access-Control-Allow-Origin': '*',
+        'Content-Type': 'text/plain'
+    });
+    fetch('http://127.0.0.1:8081/ProductBackend_war_exploded/helloproducts',{
+        method:'GET',
+        headers: myHeaders,
+        mode: 'cors',
+        //转或称字符串格式
+    }).then(res => res.json()).then(
+        data => {
+            console.log(data);
+            data.map(item=> {
+               return prodList.push(item)
+            })
+            })
+            console.log(prodList.length);
+    return prodList;
+}
 
 export const fetchListSuccess = ( productList ) => {
     return {
@@ -21,23 +43,72 @@ export const fetchListStart = () => {
     };
 };
 
-export const fetchList = (token) => {
+// export const fetchList = () => {
+//     return dispatch => {
+//         dispatch(fetchListStart());
+//         // const queryparams = '?auth=' + token;
+//         axios.get('http://127.0.0.1:8081/ProductBackend_war_exploded/helloproducts')
+//         .then( res => {
+//             const fetchProductList = [];
+//             for (let key in res.data) {
+//                 fetchProductList.push( {
+//                     ...res.data[key],
+//                     id: key
+//                 } );
+//             }
+//             console.log(fetchProductList);
+//             dispatch(fetchListSuccess(fetchProductList));
+//         })
+//         .catch( err => {
+//             dispatch(fetchListFail(err));
+//         });
+//     };
+// };
+
+// export const fetchList = () => {
+//     console.log("2")
+//     return dispatch => {
+//         dispatch(fetchListStart);
+//         let fetchProductList = []
+//         fetchProductList = getData();
+//         console.log(getData())
+//         console.log(fetchProductList.length);
+//         // if(fetchProductList.length === 0) {
+//         //     dispatch(fetchListFail("Products failed to get"));
+//         // } else {
+//             dispatch(fetchListSuccess(fetchProductList));
+//         // }
+//         console.log(fetchProductList[0])
+//     }
+// }
+
+export const fetchList = () => {
+    let prodList = [];
+    let myHeaders = new Headers({
+        'Access-Control-Allow-Origin': '*',
+        'Content-Type': 'text/plain'
+    });
     return dispatch => {
         dispatch(fetchListStart());
-        const queryparams = '?auth=' + token;
-        axios.get('/productList.json' + queryparams)
-        .then( res => {
-            const fetchProductList = [];
-            for (let key in res.data) {
-                fetchProductList.push( {
-                    ...res.data[key],
-                    id: key
-                } );
-            }
-            dispatch(fetchListSuccess(fetchProductList));
-        })
-        .catch( err => {
-            dispatch(fetchListFail(err));
-        });
-    };
-};
+        fetch('http://127.0.0.1:8081/ProductBackend_war_exploded/helloproducts',{
+        method:'GET',
+        headers: myHeaders,
+        mode: 'cors',
+        //转或称字符串格式
+    }).then(res => res.json()).then(
+        data => {
+            console.log(data);
+            
+            dispatch(fetchListSuccess(data));
+            data.map(item=> {
+               return prodList.push(item)
+            })
+            })
+            .catch(error => {
+                dispatch(fetchListFail(error));
+            })
+    }
+    
+    //         console.log(prodList.length);
+    // return prodList;
+}

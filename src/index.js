@@ -25,7 +25,9 @@ import thunk from 'redux-thunk';
 import './index.css';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
-import productSearchReducer from './store/reducers/productSearch'
+import productSearchReducer from './store/reducers/productSearch';
+import productListReducer from './store/reducers/productList'
+
 // import burgerBuilderReducer from './store/reducers/burgerBuilder';
 // import orderReducer from './store/reducers/order';
 import authReducer from './store/reducers/auth';
@@ -34,6 +36,7 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const rootReducer = combineReducers({
     productSearch: productSearchReducer,
+    productList: productListReducer,
     // burgerBuilder: burgerBuilderReducer,
     // order: orderReducer,
     auth: authReducer

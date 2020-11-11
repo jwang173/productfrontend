@@ -7,6 +7,10 @@ import Toolbar from '../../components/Navigation/Toolbar/Toolbar';
 import SideDrawer from '../../components/Navigation/SideDrawer/SideDrawer';
 import FilterPage from '../../components/Product/FilterPage/FilterPage'
 import ProductFilter from '../../containers/ProductFilter/ProductFilter';
+import NavigationProds from '../../components/Navigation/NavigationProds/NavigationProds';
+import productData from '../../datasource/ProductData';
+import userData from '../../datasource/UserData';
+import SideBar from '../../components/Navigation/SideBar/SideBar';
 
 class Layout extends Component {
     state = {
@@ -24,15 +28,18 @@ class Layout extends Component {
     }
 
     render () {
+        
         return (
             <Aux>
+                <NavigationProds />
+                {/* <SideBar /> */}
                 {/* <Toolbar
                     isAuth={this.props.isAuthenticated}
                     drawerToggleClicked={this.sideDrawerToggleHandler} /> */}
-                <SideDrawer
+                {/* <SideDrawer
                     isAuth={this.props.isAuthenticated}
                     open={this.state.showSideDrawer}
-                    closed={this.sideDrawerClosedHandler} />
+                    closed={this.sideDrawerClosedHandler} /> */}
                 {/* <ProductFilter /> */}
                 <main className={classes.Content}>
                     {this.props.children}

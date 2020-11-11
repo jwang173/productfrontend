@@ -14,6 +14,7 @@ import ProductDetail from './containers/ProductDetail/ProductDetail';
 import ProductList from './containers/ProductList/ProductList';
 import UserData from './containers/Data/UserData';
 import ProductData from './containers/Data/ProductData';
+import ProductCompare from './containers/ProductCompare/ProductCompare';
 
 class App extends Component {
   componentDidMount () {
@@ -28,6 +29,7 @@ class App extends Component {
         <Route path="/" exact component={ProductFilter} />
         <Route path="/detail" component={ProductDetail} />
         <Route path="/list" component={ProductList} />
+        <Route path="/compare" component={ProductCompare} />
         <Route path="/userdata" component={UserData} />
         <Route path="/productdata" component={ProductData} />
         <Redirect to="/" />

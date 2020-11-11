@@ -20,7 +20,7 @@ let bfan = {
                 "modelYear":2017,
                 "maxPower":40,
                 "soundAtMaxSpeed":15,
-                "brand":"Meidi"
+                "brand":"Midea"
             };
 products.push(bfan);
 let cfan = {

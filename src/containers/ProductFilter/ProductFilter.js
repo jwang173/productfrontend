@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import productData from '../../datasource/ProductData';
-
+// import productData from '../Data/ProductData';
 import Aux from '../../hoc/Aux2/Aux2';
 // import FilterPage from '../../components/Product/FilterPage';
 import FilterPart from '../../components/Product/FilterPart/FilterPart';
 import FilterDetail from '../../components/Product/FilterDetail/FilterDetail';
+import Product from '../Data/ProductData';
 
 class ProductFilter extends Component {
     Createchoice = (Arr) => {
@@ -59,12 +60,13 @@ class ProductFilter extends Component {
     }
 
     render() {
+        // console.log(Product.state);
         const application = this.CreateList("application")
         const useType = this.CreateList("useType");
         const location = this.CreateList("location");
         const brand = this.CreateList("brand");
         // console.log(brand);
-        // console.log(application);
+        console.log(useType);
         const radioItems = [
             {label:"Use Type", content: useType},
             {label:"Application", content: application},
@@ -119,17 +121,6 @@ class ProductFilter extends Component {
                             {/* <h3>Type</h3> */}
                             <div>Type</div>
                         {Filter}
-                        {/* <div>
-                            <div>
-                                <span>Use Type  </span>{useType}
-                            </div>
-                            <div>
-                                <span>Application</span>{application}
-                            </div>
-                            <div>
-                                <span>Mounting Location</span>{location}
-                            </div>
-                        </div> */}
                         <span>
                             Model Year: 
                                 <span>

@@ -6,4 +6,7 @@ export {
 } from './auth';
 export {
     searchProduct
-} from './productSearch'
+} from './productSearch';
+export {
+    fetchList
+} from './productList'

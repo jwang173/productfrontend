@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import ProductData from '../../datasource/ProductData';
+// import ProductData from '../Data/ProductData';
 import Aux from '../../hoc/Aux2/Aux2';
 import DeatilPage from '../../components/Product/DetailPage/DetailPage';
 

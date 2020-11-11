@@ -11,6 +11,7 @@ const fetchListStart = ( state, action ) => {
 };
 
 const fetchListSuccess = ( state, action ) => {
+    console.log(action.productList);
     return updateObject ( state, {
         productList: action.productList,
         loading: false
