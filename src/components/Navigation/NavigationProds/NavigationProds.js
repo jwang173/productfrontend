@@ -3,7 +3,8 @@ import Aux from '../../../hoc/Aux2/Aux2';
 import Logo from '../../Logo/Logo';
 import productData from '../../../datasource/ProductData';
 import userData from '../../../datasource/UserData';
-import classes from '../NavigationProds/NavigationProds.css'
+// import classes from '../NavigationProds/NavigationProds.css'
+import './NavigationProds.Module.css'
 import React, { Component } from 'react'
 
 
@@ -75,7 +76,7 @@ class NavigationProds extends Component {
             </span>
             )
         return (
-            <div className={classes.NavigationProds} >
+            <div className="NavigationProds" >
                 
                 <span>
                     <Logo />
