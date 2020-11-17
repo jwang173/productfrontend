@@ -18,6 +18,7 @@ import ProductCompare from './containers/ProductCompare/ProductCompare';
 
 class App extends Component {
   componentDidMount () {
+    console.log("App page");
     console.log(this.props);
     this.props.onTryAutoSignup();
   }
@@ -26,7 +27,7 @@ class App extends Component {
     let routes = (
       <Switch>
         <Route path="/auth" component={Auth} />
-        <Route path="/" exact component={ProductFilter} />
+        <Route path="/filter" exact component={ProductFilter} />
         <Route path="/detail" component={ProductDetail} />
         <Route path="/list" component={ProductList} />
         <Route path="/compare" component={ProductCompare} />
@@ -42,12 +43,12 @@ class App extends Component {
           {/* <Route path="/checkout" component={Checkout} />
           <Route path="/orders" component={Orders} /> */}
           <Route path="/logout" component={Logout} />
-          <Route path="/" exact component={ProductFilter} />
+          <Route path="/filter" exact component={ProductFilter} />
           <Route path="/detail" component={ProductDetail} />
           <Route path="/list" component={ProductList} />
           <Route path="/userdata" component={UserData} />
           <Route path="/productdata" component={ProductData} />
-          <Redirect to="/" />
+          <Redirect to={this.props.authRedirectPath ? this.props.authRedirectPath : '/'} />
         </Switch>
       );
     }
@@ -64,7 +65,8 @@ class App extends Component {
 
 const mapStateToProps = state => {
   return {
-    isAuthenticated: state.auth.token !== null
+    isAuthenticated: state.auth.token !== null,
+    authRedirectPath: state.auth.authRedirectPath,
   };
 };
 

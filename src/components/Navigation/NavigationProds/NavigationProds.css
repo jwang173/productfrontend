@@ -11,7 +11,7 @@
     box-sizing: border-box;
     display: block;
     width: 100%;
-    justify-content: space-around;
+    justify-content: space-between;
 }
 
 @media (min-width: 500px) {

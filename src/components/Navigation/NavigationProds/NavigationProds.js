@@ -4,7 +4,7 @@ import Logo from '../../Logo/Logo';
 import productData from '../../../datasource/ProductData';
 import userData from '../../../datasource/UserData';
 // import classes from '../NavigationProds/NavigationProds.css'
-import './NavigationProds.Module.css'
+import './NavigationProds.css'
 import React, { Component } from 'react'
 
 
@@ -82,14 +82,16 @@ class NavigationProds extends Component {
                     <Logo />
                 </span>
                 <span>
-                    <NavLink to = "/" exact ="/">
+                    <NavLink to = "/" exact ="/">Home</NavLink>
+                </span>
+                <span>
+
                         <Aux>
                         {SelectItems}
                         </Aux>
                         <Aux>
                             <input id="Search" type="text" placeholder="Search..."></input>
                         </Aux>
-                    </NavLink>
                 </span>
             </div>
         )

@@ -45,9 +45,11 @@ class Auth extends Component {
 
     componentDidMount() {
         if ( this.props.authRedirectPath !== '/') {
-            this.props.onSetAuthRedirectPath();
+            this.props.onSetAuthRedirectPath(this.props.authRedirectPath);
         }
     }
+
+
 
     checkValidity ( value, rules ) {
         let isValid = true;
@@ -99,6 +101,7 @@ class Auth extends Component {
 
     submitHandler = ( event ) => {
         event.preventDefault();
+        this.props.onSetAuthRedirectPath('/list');
         this.props.onAuth( this.state.controls.email.value, this.state.controls.password.value, this.state.isSignup );
     }
 
@@ -107,6 +110,8 @@ class Auth extends Component {
             return {isSignup: !prevState.isSignup};
         });
     }
+
+
 
     render () {
         const formElementsArray = [];
@@ -142,6 +147,7 @@ class Auth extends Component {
         }
 
         let authRedirect = null;
+        console.log("isAuthenticated " + this.props.isAuthenticated);
         if (this.props.isAuthenticated) {
             authRedirect = <Redirect to={this.props.authRedirectPath}/>
         }
@@ -150,9 +156,10 @@ class Auth extends Component {
             <div className={classes.Auth}>
                 {authRedirect}
                 {errorMessage}
-                <form onSubmit={this.submitHandler}>
+                <form onSubmit={this.submitHandler} >
                     {form}
                     <Button btnType="Success">SUBMIT</Button>
+                    
                 </form>
                 <Button
                     clicked={this.switchAuthModeHandler}
@@ -177,7 +184,7 @@ const mapDispatchToProps = dispatch => {
     return {
       // onAuth: ( email, password, isSignup ) => dispatch({type:actionTypes.AUTH_START}）,
         onAuth: ( email, password, isSignup ) => dispatch( actions.auth( email, password, isSignup ) ),
-        onSetAuthRedirectPath: () => dispatch(actions.setAuthRedirectPath('/'))
+        onSetAuthRedirectPath: path => dispatch(actions.setAuthRedirectPath(path))
     };
 };
 

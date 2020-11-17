@@ -23,25 +23,27 @@ class ProductList extends Component {
         return resArr;
     }
     render() {
-        const ProdData = [...this.props.prodList]
-        console.log(Object.keys(ProdData));
-        console.log(this.ConvertType(ProdData));
-        let List = (
-            <span>
-                {this.ConvertType(ProdData).map(item => (
-                    <ListPage
-                        key = {item["id"]}
-                        label = {item["id"]}
-                        name = {item["name"]} />
-                ))}
-            </span>
-        )
-        return (
-            <span>
-                {List}
-                {/* {ProdData["0"]["id"]} */}
-            </span>
-        )
+        return (<div>testing</div>)
+        // const ProdData = [...this.props.prodList]
+        // const ProdData = this.props.prodList;
+        // console.log(Object.keys(ProdData));
+        // console.log(this.ConvertType(ProdData));
+        // let List = (
+        //     <span>
+        //         {this.ConvertType(ProdData).map(item => (
+        //             <ListPage
+        //                 key = {item["id"]}
+        //                 label = {item["id"]}
+        //                 name = {item["name"]} />
+        //         ))}
+        //     </span>
+        // )
+        // return (
+        //     <span>
+        //         {List}
+        //         {/* {ProdData["0"]["id"]} */}
+        //     </span>
+        // )
     }
 }
 

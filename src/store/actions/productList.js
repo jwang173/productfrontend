@@ -1,5 +1,6 @@
 import * as actionTypes from './actionTypes';
-import axios from '../../axios-orders';
+import instance from '../../axios-orders';
+import Axios from 'axios';
 
 export let getData = () => {
     let prodList = [];
@@ -82,33 +83,54 @@ export const fetchListStart = () => {
 //     }
 // }
 
+// export const fetchList = () => {
+//     let prodList = [];
+//     let myHeaders = new Headers({
+//         'Access-Control-Allow-Origin': '*',
+//         'Content-Type': 'application/json'
+//     });
+//     return dispatch => {
+//         dispatch(fetchListStart());
+//         fetch('http://localhost:8081/ProductBackend_war_exploded/helloproducts',{
+//         method:'GET',
+//         headers: myHeaders,
+//         mode: 'cors',
+//         //转或称字符串格式
+//     }).then(res => res.json()).then(
+//         data => {
+//             console.log(data);
+            
+//             dispatch(fetchListSuccess(data));
+//             data.map(item=> {
+//                return prodList.push(item)
+//             })
+//             })
+//             .catch(error => {
+//                 dispatch(fetchListFail(error));
+//             })
+//     }
+    
+//     //         console.log(prodList.length);
+//     // return prodList;
+
+// }
+
 export const fetchList = () => {
     let prodList = [];
-    let myHeaders = new Headers({
-        'Access-Control-Allow-Origin': '*',
-        'Content-Type': 'text/plain'
-    });
     return dispatch => {
         dispatch(fetchListStart());
-        fetch('http://127.0.0.1:8081/ProductBackend_war_exploded/helloproducts',{
-        method:'GET',
-        headers: myHeaders,
-        mode: 'cors',
-        //转或称字符串格式
-    }).then(res => res.json()).then(
-        data => {
-            console.log(data);
+        console.log("2");
+        let url = '/product';
+        Axios.get(url,{withCredentials:true})
+        .then(response => {
+            console.log(response);
+            dispatch(fetchListSuccess(response));
             
-            dispatch(fetchListSuccess(data));
-            data.map(item=> {
-               return prodList.push(item)
-            })
-            })
-            .catch(error => {
-                dispatch(fetchListFail(error));
-            })
-    }
-    
-    //         console.log(prodList.length);
-    // return prodList;
+        })
+        .catch(error => {
+            console.log(error);
+            dispatch(fetchListFail(error));
+        });
+    };
+
 }

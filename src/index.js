@@ -31,8 +31,37 @@ import productListReducer from './store/reducers/productList'
 // import burgerBuilderReducer from './store/reducers/burgerBuilder';
 // import orderReducer from './store/reducers/order';
 import authReducer from './store/reducers/auth';
+import Axios from 'axios';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
+Axios.defaults.baseURL = 'http://localhost:8086';
+Axios.defaults.headers.post['Content-Type'] = 'application/json';
+Axios.defaults.withCredentials = true;
+
+Axios.interceptors.request.use(request => {
+    const token = localStorage.getItem('token');
+    console.log("the token is " + token)
+    if(token) {
+        request.headers['Authorization'] = 'Bearer ' + token;
+        // request.headers = {
+        //     'Authorization': 'Bearer ' + token
+        // };
+    }
+    console.log("Request interceptor")
+    console.log(request.headers);
+    return request;
+}, error => {
+    console.log(error);
+    return Promise.reject(error);
+})
+
+Axios.interceptors.response.use(response => {
+    return response;
+}, error => {
+    alert(error);
+    return Promise.reject(error.response);
+})
 
 const rootReducer = combineReducers({
     productSearch: productSearchReducer,
@@ -53,6 +82,8 @@ const app = (
         </BrowserRouter>
     </Provider>
 );
+
+
 
 ReactDOM.render( app, document.getElementById( 'root' ) );
 registerServiceWorker();

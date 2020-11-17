@@ -1,4 +1,5 @@
-import axios from 'axios'
+import Axios from 'axios';
+// import Axios from '../../axios-orders';
 
 import * as actionTypes from './actionTypes'
 
@@ -40,32 +41,36 @@ export const checkAuthTimeout = (expirationTime) => {
     };
 };
 
-export const auth = (email, password, isSignup) => {
+export const auth = (username, password, isSignup) => {
     return dispatch => {
         dispatch(authStart());
         const authData = {
-            email: email,
+            username: username,
             password: password,
+            profilePic: null,
             returnSecureToken: true
         };
-        let url2 = 'http://127.0.0.1:8081/ProductBackend_war_exploded/hello';
-        console.log(axios.get(url2));
-        let url = 'https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=AIzaSyBdHVdiAhum7t4UG8c0fHGT-PXUwKvurK4';
+        // let url2 = 'http://127.0.0.1:8081/ProductBackend_war_exploded/addusers';
+        let url = '/signup'
+        // console.log(axios.get(url2));
+        // let url = 'https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=AIzaSyBdHVdiAhum7t4UG8c0fHGT-PXUwKvurK4';
         if(!isSignup) {
-            url = 'https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=AIzaSyBdHVdiAhum7t4UG8c0fHGT-PXUwKvurK4';
+            url =  '/login';
         }
-        axios.post(url, authData)
+        Axios.post(url, authData)
         .then(response => {
             console.log(response);
-            const expirationDate = new Date(new Date.getTime() + response.data.expiresIn * 1000);
-            localStorage.setItem('token', response.data.idToken);
+            const expirationDate = new Date(new Date().getTime() + response.data.expiresIn * 1000);
+            console.log("Got token: " + response.data.jwt)
+            localStorage.setItem('token', response.data.jwt);
             localStorage.setItem('expirationDate', expirationDate);
             localStorage.setItem('userId', response.data.localId);
-            dispatch(authSuccess(response.data.idToken, response.data.localId));
+            dispatch(authSuccess(response.data.jwt, response.data.localId));
             dispatch(checkAuthTimeout(response.data.expiresIn));
+            console.log("1");
         })
         .catch(err => {
-            dispatch(authFail(err.response.data.error));
+            dispatch(authFail(err));
         });
     };
 };

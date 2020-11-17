@@ -12,9 +12,9 @@ class UserData extends Component {
         //修改请求头
         let myHeaders = new Headers({
             'Access-Control-Allow-Origin': '*',
-            'Content-Type': 'text/plain'
+            'Content-Type': 'application/json'
         });
-        fetch('http://127.0.0.1:8081/ProductBackend_war_exploded/hello',{
+        fetch('http://127.0.0.1:8086',{
             method:'GET',
             headers: myHeaders,
             mode: 'cors',
