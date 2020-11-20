@@ -1,17 +1,19 @@
 .NavigationProds {
     /* background-color: cadetblue; */
-    margin: 10px;
-    background-image: linear-gradient(to right, rgb(233, 224, 224),rgb(50, 127, 168));
+    margin-left: 10px;
+    margin-right: 10px;
+    background-image: linear-gradient(to right, rgb(232,241,249),rgb(203,224,242));
     border-top: solid;
     border-left: solid;
     border-right: solid;
     border-top-color:rgb(50, 105, 168);
     border-left-color:rgb(50, 105, 168);
-    border-top-color:rgb(50, 105, 168);
+    border-right-color:rgb(50, 105, 168);
     box-sizing: border-box;
     display: block;
     width: 100%;
     justify-content: space-between;
+    height: 132px
 }
 
 @media (min-width: 500px) {

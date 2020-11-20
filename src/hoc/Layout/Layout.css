@@ -1,3 +1,21 @@
-.Content {
-    margin-top: 72px;
+/* .Layout {
+} */
+    /* margin-top: 72px; */
+    /* background-image: linear-gradient(to bottom, rgb(232,241,249),rgb(203,224,242)); */
+
+.HomeItem {
+    text-align: center;
 }
+.Content {
+    margin: 10px;
+    width: fit-content; 
+    align-content: flex-start;
+    border: 1px;
+    border-style: solid;
+    border-color: blue;
+    /* width: fit-content;
+    align-content: center; */
+    /* background-color: blue; */
+    /* background-image: linear-gradient(to bottom, rgb(232,241,249),rgb(203,224,242));*/
+} 
+

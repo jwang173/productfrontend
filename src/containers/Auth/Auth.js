@@ -7,6 +7,7 @@ import Button from '../UI/Button/Button';
 import Spinner from '../UI/Spinner/Spinner';
 import classes from './Auth.css';
 import * as actions from '../../store/actions/index';
+import HomeItem from '../../components/HomeItems/HomeItem'
 
 class Auth extends Component {
     state = {
@@ -153,9 +154,10 @@ class Auth extends Component {
         }
 
         return (
-            <div className={classes.Auth}>
+            <div className="Auth">
                 {authRedirect}
                 {errorMessage}
+                <HomeItem />
                 <form onSubmit={this.submitHandler} >
                     {form}
                     <Button btnType="Success">SUBMIT</Button>

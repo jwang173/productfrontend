@@ -53,7 +53,6 @@ export const auth = (username, password, isSignup) => {
         // let url2 = 'http://127.0.0.1:8081/ProductBackend_war_exploded/addusers';
         let url = '/signup'
         // console.log(axios.get(url2));
-        // let url = 'https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=AIzaSyBdHVdiAhum7t4UG8c0fHGT-PXUwKvurK4';
         if(!isSignup) {
             url =  '/login';
         }
@@ -64,8 +63,8 @@ export const auth = (username, password, isSignup) => {
             console.log("Got token: " + response.data.jwt)
             localStorage.setItem('token', response.data.jwt);
             localStorage.setItem('expirationDate', expirationDate);
-            localStorage.setItem('userId', response.data.localId);
-            dispatch(authSuccess(response.data.jwt, response.data.localId));
+            localStorage.setItem('userId', response.data.id);
+            dispatch(authSuccess(response.data.jwt, response.data.id));
             dispatch(checkAuthTimeout(response.data.expiresIn));
             console.log("1");
         })

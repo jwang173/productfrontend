@@ -1,0 +1,31 @@
+.SideBar {
+    /* position: fixed; */
+    /* border-style: solid;
+    border-width: 1px;
+    border-color: blue; */
+    width: 20%;
+    justify-content: space-around;
+    text-align: justify; 
+    height: 80%;
+    /* text-align-last: justify; 
+    text-justify: inter-ideograph; */
+}
+.SideBar div {
+    text-align: justify; 
+    width:fit-content;
+    justify-content: space-around;
+}
+/* .SideBar input #number1 {
+    width: 20%
+}
+.SideBar input #number2 {
+    width: 20%
+} */
+.SideBar span {
+    text-align: justify; 
+    align-content: flex-start;
+}
+.ModelYear {
+    /* text-align: justify;  */
+    justify-content: flex-start;
+}

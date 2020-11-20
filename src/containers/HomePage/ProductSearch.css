@@ -1,0 +1,11 @@
+.ProductSearch {
+    text-align: center;
+    width: fit-content;
+}
+
+.HomeItem {
+    top: 0;
+	left: 30%;
+	right: 30%;
+	bottom: 0;
+}

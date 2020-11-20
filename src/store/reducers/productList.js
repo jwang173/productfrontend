@@ -3,6 +3,7 @@ import { updateObject } from '../utility';
 
 const initialState = {
     productList: [],
+    tagList: [],
     loading: false
 };
 
@@ -13,6 +14,7 @@ const fetchListStart = ( state, action ) => {
 const fetchListSuccess = ( state, action ) => {
     console.log(action.productList);
     return updateObject ( state, {
+        tagList: action.tagList,
         productList: action.productList,
         loading: false
     });

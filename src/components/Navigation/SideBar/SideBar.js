@@ -1,27 +1,39 @@
 import React, { Component } from 'react'
+import "./SideBar.css"
 
 export class SideBar extends Component {
+    cssJoin = (str1, str2) => {
+        return str1+" "+str2;
+    }
     render() {
         return (
-            <div>
+            <span className="SideBar" style={{textAlign:"justify"}}>
                 <div>
                     Search:
                     <button>Save</button>
                     <button>Clear</button>
                 </div>
-                <div>Product Type
-                    <button></button>
-                    <span>
-                            Model Year: 
+                <div>
+                    <div>
+                        Product Type
+                        <button></button>
+                    </div>
+                    <div className={this.cssJoin("SideBar","ModelYear")}>
+                        Model Year: 
+                        &nbsp;&nbsp;
+                        <span />
                                 <span>
-                                    <input id="number" type="number" defaultValue="2010"/>
+                                    <input id="number1" type="number" defaultValue="2010" style={{width:"15%"}} />
                                     -
-                                    <input id="number2" type="number2" defaultValue="" />
+                                    <input id="number2" type="number" defaultValue="" style={{width:"15%"}} />
                                 </span>
-                    </span>
+                    </div>
                 </div>
                 <div>
-                Technical Specifications
+                    <div>
+                        Technical Specifications
+                    </div>
+                
                 <div>
                     <div>Max power(W)</div>
                     
@@ -36,7 +48,8 @@ export class SideBar extends Component {
                     <label>80</label>
                 </div>
                 </div>
-                <div>Brand
+                <div>
+                    <div>Brand</div>
                     <div>
                         <input type="radio" name="Midea" checked></input>
                         <label>Midea</label>
@@ -45,7 +58,9 @@ export class SideBar extends Component {
                     </div>
                 
                 </div>
-            </div>
+                <div>1</div>
+                <div>2</div>
+            </span>
         )
     }
 }

@@ -11,10 +11,15 @@ import NavigationProds from '../../components/Navigation/NavigationProds/Navigat
 import productData from '../../datasource/ProductData';
 import userData from '../../datasource/UserData';
 import SideBar from '../../components/Navigation/SideBar/SideBar';
+import HomeItem from '../../components/HomeItems/HomeItem';
 
 class Layout extends Component {
     state = {
         showSideDrawer: false
+    }
+
+    cssJoin = (str1, str2) => {
+        return str1+" "+str2;
     }
 
     sideDrawerClosedHandler = () => {
@@ -28,24 +33,28 @@ class Layout extends Component {
     }
 
     render () {
+        if(!this.props.isAuthenticated) {
+            return (
+                <Aux className="Layout">
+                    {/* <NavigationProds isAuth={this.props.isAuthenticated} /> */}
+                    {/* <HomeItem /> */}
+                    <main className={this.cssJoin("Layout","HomeItem")}>
+                        {this.props.children}
+                    </main>
+                </Aux>
+            )
+        }
+        else {
+            return (
+                <Aux className="Total">
+                    <NavigationProds isAuth={this.props.isAuthenticated} />
+                    <main className={this.cssJoin("Layout","Content")}>
+                        {this.props.children}
+                    </main>
+                </Aux>
+            )
+        }
         
-        return (
-            <Aux>
-                <NavigationProds />
-                {/* <SideBar /> */}
-                {/* <Toolbar
-                    isAuth={this.props.isAuthenticated}
-                    drawerToggleClicked={this.sideDrawerToggleHandler} /> */}
-                {/* <SideDrawer
-                    isAuth={this.props.isAuthenticated}
-                    open={this.state.showSideDrawer}
-                    closed={this.sideDrawerClosedHandler} /> */}
-                {/* <ProductFilter /> */}
-                <main className={classes.Content}>
-                    {this.props.children}
-                </main>
-            </Aux>
-        )
     }
 }
 
@@ -56,3 +65,4 @@ const mapStateToProps = state => {
 };
 
 export default connect( mapStateToProps )( Layout );
+//居中auth,背景颜色

@@ -15,6 +15,9 @@ import ProductList from './containers/ProductList/ProductList';
 import UserData from './containers/Data/UserData';
 import ProductData from './containers/Data/ProductData';
 import ProductCompare from './containers/ProductCompare/ProductCompare';
+import ProductSearch from './containers/HomePage/ProductSearch';
+import HomeItem from './components/HomeItems/HomeItem';
+import NavigationProds from './components/Navigation/NavigationProds/NavigationProds'
 
 class App extends Component {
   componentDidMount () {
@@ -26,6 +29,7 @@ class App extends Component {
   render () {
     let routes = (
       <Switch>
+        <Route path="/search" component={ProductSearch} />
         <Route path="/auth" component={Auth} />
         <Route path="/filter" exact component={ProductFilter} />
         <Route path="/detail" component={ProductDetail} />
@@ -42,6 +46,7 @@ class App extends Component {
         <Switch>
           {/* <Route path="/checkout" component={Checkout} />
           <Route path="/orders" component={Orders} /> */}
+          <Route path="/search" component={ProductSearch} />
           <Route path="/logout" component={Logout} />
           <Route path="/filter" exact component={ProductFilter} />
           <Route path="/detail" component={ProductDetail} />
@@ -53,13 +58,15 @@ class App extends Component {
       );
     }
 
-    return (
-      <div>
-        <Layout>
-          {routes}
-        </Layout>
-      </div>
-    );
+      return (
+        <div>
+          <Layout>
+            {routes}
+          </Layout>
+        </div>
+      );
+
+    
   }
 }
 

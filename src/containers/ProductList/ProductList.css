@@ -1,0 +1,13 @@
+.ProductList {
+    display: grid;
+    flex-wrap: nowrap;
+    grid-template-columns: 20% 80%;
+    grid-template-areas: "SideBar Main";
+}
+.SideBar {
+    justify-content: baseline;
+    text-align: justify;
+}
+.Main {
+
+}
