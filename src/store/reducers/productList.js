@@ -12,7 +12,7 @@ const fetchListStart = ( state, action ) => {
 };
 
 const fetchListSuccess = ( state, action ) => {
-    console.log(action.productList);
+    // console.log(action.productList);
     return updateObject ( state, {
         tagList: action.tagList,
         productList: action.productList,

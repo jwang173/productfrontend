@@ -13,6 +13,7 @@ const compareListStart = ( state, action ) => {
 };
 
 const compareListSuccess = ( state, action ) => {
+    console.log(action.prodCompareList)
     return updateObject( state, {
         prodCompareList: action.prodCompareList,
         loading: false

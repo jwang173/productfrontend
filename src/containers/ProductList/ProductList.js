@@ -15,7 +15,7 @@ class ProductList extends Component {
     }
     componentDidMount () {
         // console.log(this.props);
-        this.props.onSetAuthRedirectPath("/list");
+        // this.props.onSetAuthRedirectPath("/list");
         console.log(this.props.authRedirectPath)
         this.props.onProductListShown();
         this.props.onSetRouteSignal(true);
@@ -31,9 +31,9 @@ class ProductList extends Component {
     cssJoin = (str1, str2) => {
         return str1+" "+str2;
     }
-    changeHandler = (id, Arr) => {
-        console.log(id);
-        console.log(Arr);
+    changeHandler = (event, id, Arr) => {
+        // console.log(id);
+        // console.log(Arr);
         let arr = Arr;
         let sig = false;
         // if(arr.length <= this.props.prodList.length) {
@@ -45,7 +45,7 @@ class ProductList extends Component {
         // } 
         if(!arr.includes(id)) {
             arr.push(id);
-            console.log(arr);
+            // console.log(arr);
         } else {
             sig = true;
         }
@@ -60,19 +60,22 @@ class ProductList extends Component {
         // this.props.onSetAuthRedirectPath('')
     }
 
-    clickHandler = (id,Arr) => {
+    clickHandler = (event, id,Arr) => {
         // if(id === Arr[Arr.length -1]) {
         //     this.props.onSetAuthRedirectPath('/compare')
         // }
         console.log(id);
+        console.log(Arr)
         this.props.onCompareList(Arr);
-        let path = this.props.onSetAuthRedirectPath('/compare')
-        console.log(path["path"])
-        return <Redirect to='/compare'></Redirect>
+        this.props.onSetAuthRedirectPath('/compare')
+    }
+    clickDetailHandler = (event, name) => {
+        console.log(name);
+        this.props.onSearchProduct(name);
+        // console.log(this.props.searchProduct)
+        this.props.onSetAuthRedirectPath('/detail');
     }
     render() {
-        // return (<div>testing</div>)
-        // const ProdData = [...this.props.prodList]
         let ProdData;
         if(this.props.searchList.length === 0) {
             ProdData = this.props.prodList;
@@ -80,22 +83,19 @@ class ProductList extends Component {
             ProdData = this.props.searchList;
         }
         
-        console.log(this.props.prodList);
-        console.log(this.props.searchList);
-        console.log(this.props.comparedList);
-        console.log(this.props.signal);
-        console.log(this.props.authRedirectPath);
-        let path = '/list'
-        console.log(this.props.onSetAuthRedirectPath(path));
+        // console.log(this.props.prodList);
+        // console.log(this.props.searchList);
+        // console.log(this.props.comparedList);
+        // console.log(this.props.signal);
+        // console.log(this.props.authRedirectPath);
         // this.props.authRedirectPath
-        console.log(this.props.authRedirectPath);
         // console.log(this.props.tagList);
         // console.log(Object.keys(ProdData));
         // console.log(this.ConvertType(ProdData));
         let List = (
             <span>
                 {this.ConvertType(ProdData).map(item => (
-                    <div className="ProductList card">
+                    <div className="ProductList card" onClick={(event) => this.clickDetailHandler(event, item["name"])}>
                     <div className="ProductList container">
                         <p style={{textAlign:"center"}}>{item["id"]}</p>
                         <p>{item["name"]}</p>
@@ -104,8 +104,8 @@ class ProductList extends Component {
                         <p>{item["useType"]}</p>
                     <div className="ProductList compare">
                         <label for={item["id"]} style={{display:"inline-block",justifyContent:"space-around"}}>Compare</label>
-                        <input type="checkbox" id={item["id"]} onClick={(e) => this.changeHandler(item["id"],this.state.CompareIdList)} />
-                        <button id={item["id"]} style={{width:80,justifySelf:"flex-end"}} onClick={(e) => this.clickHandler(item["id"],this.state.CompareIdList)}> Add to</button>
+                        <input type="checkbox" id={item["id"]} onChange={(event) => this.changeHandler(event, item["id"],this.state.CompareIdList)} />
+                        <button id={item["id"]} style={{width:80,justifySelf:"flex-end"}} onClick={(event) => this.clickHandler(event,item["id"],this.state.CompareIdList)}> Add to</button>
                     </div>   
                     </div>
                 </div>
@@ -130,10 +130,10 @@ class ProductList extends Component {
             authRedirect = <Redirect to={this.props.authRedirectPath}/>
             console.log("go")
         }
-        let comparedList = this.props.prodList;
+        let comparedList = this.props.comparedList;
         // let item1 = comparedList[0];
         // let keys = Object.keys(item1);
-        console.log(comparedList[0]);
+        console.log(comparedList);
         // console.log(item1);
         // console.log(this.props.signal);
         // console.log(keys);
@@ -188,7 +188,8 @@ const mapStateToProps = state => {
         searchList: state.productSearch.searchList,
         comparedList: state.productCompare.prodCompareList,
         signal: state.productSearch.signal,
-        authRedirectPath: state.auth.authRedirectPath
+        authRedirectPath: state.auth.authRedirectPath,
+        searchProduct: state.productSearch.product
     }
 }
 
@@ -198,7 +199,8 @@ const mapDispatchToProps = dispatch => {
         onProductListShown: () => dispatch(actions.fetchList()),
         onSearchList: (target) => dispatch(actions.searchList(target)),
         onSetAuthRedirectPath: (path) => dispatch(actions.setAuthRedirectPath(path)),
-        onSetRouteSignal: (signal) => dispatch(actions.setRouteSignal(signal))
+        onSetRouteSignal: (signal) => dispatch(actions.setRouteSignal(signal)),
+        onSearchProduct: (name) => dispatch(actions.searchProduct(name))
     }
 }
 export default connect( mapStateToProps, mapDispatchToProps )( ProductList,axios);

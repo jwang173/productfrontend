@@ -7,8 +7,12 @@ import * as actions from '../../store/actions/index';
 import axios from 'axios';
 import Aux from '../../hoc/Aux2/Aux2';
 import DeatilPage from '../../components/Product/DetailPage/DetailPage';
+import { Redirect } from 'react-router-dom';
 // import NavigationProds from '../../components/Navigation/NavigationProds/NavigationProds'
 class ProductDetail extends Component {
+    componentDidMount() {
+        this.props.onSetRouteSignal(true);
+    }
     Assign = (obj) => {
         let keys = Object.keys(obj);
         let Description = {};
@@ -76,7 +80,8 @@ class ProductDetail extends Component {
         return str2;
     }
     render() {
-        let product = ProductData[0];
+        console.log(this.props.searchProduct)
+        let product = this.props.searchProduct;
         let res = this.Assign(product);
         console.log(res);
         let res2 = this.Convert(res);
@@ -100,8 +105,14 @@ class ProductDetail extends Component {
                 }
             </div>
         )
+        let authRedirect = null;
+        if (this.props.isAuthenticated) {
+            console.log(this.props.authRedirectPath);
+            authRedirect = <Redirect to={this.props.authRedirectPath}/>
+        }
         return (
             <div>
+                {authRedirect}
                 {/* <NavigationProds isAuth={this.props.isAuthenticated} /> */}
                 <span>
                     
@@ -137,7 +148,8 @@ const mapStateToProps = state => {
         searchList: state.productSearch.searchList,
         comparedList: state.productCompare.prodCompareList,
         signal: state.productSearch.signal,
-        authRedirectPath: state.auth.authRedirectPath
+        authRedirectPath: state.auth.authRedirectPath,
+        searchProduct: state.productSearch.product
     }
 }
 
@@ -147,8 +159,9 @@ const mapDispatchToProps = dispatch => {
         onProductListShown: () => dispatch(actions.fetchList()),
         onSearchList: (target) => dispatch(actions.searchList(target)),
         onSetAuthRedirectPath: (path) => dispatch(actions.setAuthRedirectPath(path)),
-        onSetRouteSignal: (signal) => dispatch(actions.setRouteSignal(signal))
+        onSetRouteSignal: (signal) => dispatch(actions.setRouteSignal(signal)),
+        onSearchProduct: (name) => dispatch(actions.searchProduct(name))
     }
 }
-export default connect( mapStateToProps, mapDispatchToProps )( ProductDetail,axios);
+export default connect( mapStateToProps, mapDispatchToProps )( ProductDetail);
 // export default ProductDetail

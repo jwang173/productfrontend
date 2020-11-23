@@ -17,6 +17,8 @@ class ProductFilter extends Component {
         // this.props.onSetAuthRedirectPath('/filter');
         if ( this.props.authRedirectPath !== '/') {
             this.props.onSetAuthRedirectPath(this.props.authRedirectPath);
+        } else {
+            this.props.onSetAuthRedirectPath("/list")
         }
     }
     Createchoice = (Arr) => {
@@ -133,7 +135,7 @@ class ProductFilter extends Component {
         
         return (
             <Aux>
-                    {/* {authRedirect} */}
+                    {authRedirect}
                     <div>
                     {/* <NavigationProds isAuth={this.props.isAuthenticated} /> */}
                         <h3>Find fans</h3>
@@ -197,7 +199,8 @@ const mapStateToProps = state => {
         isAuthenticated: state.auth.token !== null,
         searchList: state.productSearch.searchList,
         comparedList: state.productCompare.prodCompareList,
-        signal: state.productSearch.signal
+        signal: state.productSearch.signal,
+        authRedirectPath: state.auth.authRedirectPath
     }
 }
 

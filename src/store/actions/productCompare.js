@@ -23,6 +23,7 @@ export const compareListStart = () => {
 };
 
 export const compareList = (arr) => {
+    console.log(arr);
     // let times = arr.length;
     // let prodList = list.productList;
     let prodList = [];
@@ -37,7 +38,7 @@ export const compareList = (arr) => {
             for(let item of response["data"]) {
                 prodList.push(item);
             }
-            console.log(prodList);
+            // console.log(prodList);
             // console.log(arr);
             // console.log(typeof arr[0]);
             for(let i of arr) {

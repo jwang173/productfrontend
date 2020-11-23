@@ -28,8 +28,8 @@ export const searchProduct = (productName) => {
         let url = '/product/prod?productName='+productName
         Axios.get(url,{withCredentials:true})
             .then(response => {
-                console.log(response)
-                dispatch(searchProductSuccess(response));
+                console.log(response["data"])
+                dispatch(searchProductSuccess(response["data"]));
             }).catch( error => {
                 dispatch(searchProductFail(error));
             });

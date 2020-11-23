@@ -90,44 +90,11 @@ export const fetchListStart = () => {
     };
 };
 
-// export const fetchList = () => {
-//     let prodList = [];
-//     let myHeaders = new Headers({
-//         'Access-Control-Allow-Origin': '*',
-//         'Content-Type': 'application/json'
-//     });
-//     return dispatch => {
-//         dispatch(fetchListStart());
-//         fetch('http://localhost:8081/ProductBackend_war_exploded/helloproducts',{
-//         method:'GET',
-//         headers: myHeaders,
-//         mode: 'cors',
-//         //转或称字符串格式
-//     }).then(res => res.json()).then(
-//         data => {
-//             console.log(data);
-            
-//             dispatch(fetchListSuccess(data));
-//             data.map(item=> {
-//                return prodList.push(item)
-//             })
-//             })
-//             .catch(error => {
-//                 dispatch(fetchListFail(error));
-//             })
-//     }
-    
-//     //         console.log(prodList.length);
-//     // return prodList;
-
-// }
-
 export const fetchList = () => {
     let prodList = [];
     let tagList = [];
     return dispatch => {
         dispatch(fetchListStart());
-        console.log("2");
         let url = '/product';
         Axios.get(url,{withCredentials:true})
         .then(response => {
@@ -139,7 +106,7 @@ export const fetchList = () => {
             // console.log(prodList);
             const useType = CreateList(prodList,"useType");
             tagList = useType;
-            console.log(tagList);
+            // console.log(tagList);
             dispatch(fetchListSuccess(prodList, tagList));
             
         })

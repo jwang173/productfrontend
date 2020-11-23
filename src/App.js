@@ -52,6 +52,7 @@ class App extends Component {
           <Route path="/filter" component={ProductFilter} />
           <Route path="/detail" component={ProductDetail} />
           <Route path="/list" exact component={ProductList} />
+          <Route path="/compare" component={ProductCompare} />
           <Route path="/userdata" component={UserData} />
           <Route path="/productdata" component={ProductData} />
           <Redirect to={this.props.authRedirectPath ? this.props.authRedirectPath : '/filter'} />
