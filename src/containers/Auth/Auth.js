@@ -5,7 +5,7 @@ import { Redirect } from 'react-router-dom';
 import Input from '../UI/Input/Input';
 import Button from '../UI/Button/Button';
 import Spinner from '../UI/Spinner/Spinner';
-import classes from './Auth.css';
+import './Auth.css';
 import * as actions from '../../store/actions/index';
 import HomeItem from '../../components/HomeItems/HomeItem'
 
@@ -45,6 +45,7 @@ class Auth extends Component {
     }
 
     componentDidMount() {
+        // this.props.onSetAuthRedirectPath('/list');
         if ( this.props.authRedirectPath !== '/') {
             this.props.onSetAuthRedirectPath(this.props.authRedirectPath);
         }
@@ -102,7 +103,7 @@ class Auth extends Component {
 
     submitHandler = ( event ) => {
         event.preventDefault();
-        this.props.onSetAuthRedirectPath('/list');
+        this.props.onSetAuthRedirectPath('/search');
         this.props.onAuth( this.state.controls.email.value, this.state.controls.password.value, this.state.isSignup );
     }
 
@@ -176,7 +177,6 @@ const mapStateToProps = state => {
         loading: state.auth.loading,
         error: state.auth.error,
         isAuthenticated: state.auth.token !== null,
-        // buildingBurger: state.burgerBuilder.building,
         authRedirectPath: state.auth.authRedirectPath,
         productList: state.productList.productList
     };

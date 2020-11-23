@@ -100,3 +100,10 @@ export const searchList = (str) => {
         
     }
 }
+
+export const setRouteSignal = (signal) => {
+    return {
+        type: actionTypes.SET_ROUTE_SIGNAL,
+        signal: signal
+    };
+};

@@ -1,7 +1,7 @@
 .NavigationProds {
     /* background-color: cadetblue; */
-    margin-left: 10px;
-    margin-right: 10px;
+    /* margin-left: 10px; */
+    /* margin-right: 10px; */
     background-image: linear-gradient(to right, rgb(232,241,249),rgb(203,224,242));
     border-top: solid;
     border-left: solid;
@@ -13,9 +13,11 @@
     display: block;
     width: 100%;
     justify-content: space-between;
-    height: 132px
+    height: 132px;
 }
-
+/* .signup {
+    align-items: flex-end;
+} */
 @media (min-width: 500px) {
     .NavigationProds {
         flex-flow: row;

@@ -3,8 +3,6 @@ import { connect } from 'react-redux';
 
 import Aux from '../Aux2/Aux2';
 import classes from './Layout.css';
-import Toolbar from '../../components/Navigation/Toolbar/Toolbar';
-import SideDrawer from '../../components/Navigation/SideDrawer/SideDrawer';
 import FilterPage from '../../components/Product/FilterPage/FilterPage'
 import ProductFilter from '../../containers/ProductFilter/ProductFilter';
 import NavigationProds from '../../components/Navigation/NavigationProds/NavigationProds';
@@ -44,15 +42,30 @@ class Layout extends Component {
                 </Aux>
             )
         }
-        else {
-            return (
-                <Aux className="Total">
-                    <NavigationProds isAuth={this.props.isAuthenticated} />
-                    <main className={this.cssJoin("Layout","Content")}>
-                        {this.props.children}
-                    </main>
+        else { 
+            if(!this.props.isSignal) {
+                return (
+                    <Aux className="Total">
+                        
+                        <main className={this.cssJoin("Layout","Content")}>
+                            {this.props.children}
+                        </main>
                 </Aux>
-            )
+                )
+            } else {
+                return (
+                    <Aux className="Total">
+                            <NavigationProds isAuth={this.props.isAuthenticated} />
+                            {/* <SideBar className={this.cssJoin("Layout","SideBar")}/> */}
+                            <span>
+                            <main className={this.cssJoin("Layout","Content")}>
+                                {this.props.children}
+                            </main>
+                            </span>
+                    </Aux>
+                )
+            }
+            
         }
         
     }
@@ -60,7 +73,8 @@ class Layout extends Component {
 
 const mapStateToProps = state => {
     return {
-        isAuthenticated: state.auth.token !== null
+        isAuthenticated: state.auth.token !== null,
+        isSignal: state.productSearch.signal
     };
 };
 

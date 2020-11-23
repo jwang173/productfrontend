@@ -3,9 +3,11 @@ import { connect } from 'react-redux';
 
 import ProductData from '../../datasource/ProductData';
 // import ProductData from '../Data/ProductData';
+import * as actions from '../../store/actions/index';
+import axios from 'axios';
 import Aux from '../../hoc/Aux2/Aux2';
 import DeatilPage from '../../components/Product/DetailPage/DetailPage';
-
+// import NavigationProds from '../../components/Navigation/NavigationProds/NavigationProds'
 class ProductDetail extends Component {
     Assign = (obj) => {
         let keys = Object.keys(obj);
@@ -100,6 +102,7 @@ class ProductDetail extends Component {
         )
         return (
             <div>
+                {/* <NavigationProds isAuth={this.props.isAuthenticated} /> */}
                 <span>
                     
                         {showItems}
@@ -126,4 +129,26 @@ class ProductDetail extends Component {
     }
 }
 
-export default ProductDetail
+const mapStateToProps = state => {
+    return {
+        tagList: state.productList.tagList,
+        prodList: state.productList.productList,
+        isAuthenticated: state.auth.token !== null,
+        searchList: state.productSearch.searchList,
+        comparedList: state.productCompare.prodCompareList,
+        signal: state.productSearch.signal,
+        authRedirectPath: state.auth.authRedirectPath
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        onCompareList: (idArr) => dispatch(actions.compareList(idArr)),
+        onProductListShown: () => dispatch(actions.fetchList()),
+        onSearchList: (target) => dispatch(actions.searchList(target)),
+        onSetAuthRedirectPath: (path) => dispatch(actions.setAuthRedirectPath(path)),
+        onSetRouteSignal: (signal) => dispatch(actions.setRouteSignal(signal))
+    }
+}
+export default connect( mapStateToProps, mapDispatchToProps )( ProductDetail,axios);
+// export default ProductDetail

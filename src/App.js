@@ -29,15 +29,15 @@ class App extends Component {
   render () {
     let routes = (
       <Switch>
+        <Route path="/auth" exact component={Auth} />
         <Route path="/search" component={ProductSearch} />
-        <Route path="/auth" component={Auth} />
         <Route path="/filter" exact component={ProductFilter} />
         <Route path="/detail" component={ProductDetail} />
         <Route path="/list" component={ProductList} />
         <Route path="/compare" component={ProductCompare} />
         <Route path="/userdata" component={UserData} />
         <Route path="/productdata" component={ProductData} />
-        <Redirect to="/" />
+        <Redirect to= "/auth"/>
       </Switch>
     );
 
@@ -48,12 +48,13 @@ class App extends Component {
           <Route path="/orders" component={Orders} /> */}
           <Route path="/search" component={ProductSearch} />
           <Route path="/logout" component={Logout} />
-          <Route path="/filter" exact component={ProductFilter} />
+          {/* <Route path="/filter" exact component={ProductFilter} /> */}
+          <Route path="/filter" component={ProductFilter} />
           <Route path="/detail" component={ProductDetail} />
-          <Route path="/list" component={ProductList} />
+          <Route path="/list" exact component={ProductList} />
           <Route path="/userdata" component={UserData} />
           <Route path="/productdata" component={ProductData} />
-          <Redirect to={this.props.authRedirectPath ? this.props.authRedirectPath : '/'} />
+          <Redirect to={this.props.authRedirectPath ? this.props.authRedirectPath : '/filter'} />
         </Switch>
       );
     }

@@ -6,9 +6,19 @@ import Aux from '../../hoc/Aux2/Aux2';
 // import FilterPage from '../../components/Product/FilterPage';
 import FilterPart from '../../components/Product/FilterPart/FilterPart';
 import FilterDetail from '../../components/Product/FilterDetail/FilterDetail';
-import Product from '../Data/ProductData';
-
+import * as actions from '../../store/actions/index';
+import { Redirect,withRouter } from 'react-router-dom';
+import Axios from 'axios';
+// import NavigationProds from '../../components/Navigation/NavigationProds/NavigationProds';
 class ProductFilter extends Component {
+    componentDidMount() {
+        this.props.onProductListShown();
+        this.props.onSetRouteSignal(true);
+        // this.props.onSetAuthRedirectPath('/filter');
+        if ( this.props.authRedirectPath !== '/') {
+            this.props.onSetAuthRedirectPath(this.props.authRedirectPath);
+        }
+    }
     Createchoice = (Arr) => {
         let len = Arr.length;
         // console.log(len);
@@ -58,8 +68,12 @@ class ProductFilter extends Component {
         })
         return Ans;
     }
-
+    clickHandler = () => {
+        this.props.onSetAuthRedirectPath('/list');
+    }
     render() {
+        console.log(this.props.prodList)
+        console.log(this.props.signal);
         // console.log(Product.state);
         const application = this.CreateList("application")
         const useType = this.CreateList("useType");
@@ -112,9 +126,16 @@ class ProductFilter extends Component {
                             </span>
                             )
         // return <FilterPage />
+        let authRedirect = null;
+        if (this.props.isAuthenticated) {
+            authRedirect = <Redirect to={this.props.authRedirectPath}/>
+        }
+        
         return (
             <Aux>
+                    {/* {authRedirect} */}
                     <div>
+                    {/* <NavigationProds isAuth={this.props.isAuthenticated} /> */}
                         <h3>Find fans</h3>
                         <form>
                             <fieldset>
@@ -161,7 +182,7 @@ class ProductFilter extends Component {
                         
                     </div>
                     <div>
-                        <button value="Search">Search</button>
+                        <button value="Search" onClick={() => this.clickHandler()}>Search</button>
                     </div>
                 </Aux>
         );
@@ -169,4 +190,25 @@ class ProductFilter extends Component {
     }
 }
 
-export default ProductFilter;
+const mapStateToProps = state => {
+    return {
+        tagList: state.productList.tagList,
+        prodList: state.productList.productList,
+        isAuthenticated: state.auth.token !== null,
+        searchList: state.productSearch.searchList,
+        comparedList: state.productCompare.prodCompareList,
+        signal: state.productSearch.signal
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        onCompareList: (idArr) => dispatch(actions.compareList(idArr)),
+        onProductListShown: () => dispatch(actions.fetchList()),
+        onSearchList: (target) => dispatch(actions.searchList(target)),
+        onSetAuthRedirectPath: (path) => dispatch(actions.setAuthRedirectPath(path)),
+        onSetRouteSignal: (signal) => dispatch(actions.setRouteSignal(signal))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)( ProductFilter,Axios);

@@ -18,10 +18,9 @@ export class SideBar extends Component {
                         Product Type
                         <button></button>
                     </div>
-                    <div className={this.cssJoin("SideBar","ModelYear")}>
+                    <div>
                         Model Year: 
                         &nbsp;&nbsp;
-                        <span />
                                 <span>
                                     <input id="number1" type="number" defaultValue="2010" style={{width:"15%"}} />
                                     -

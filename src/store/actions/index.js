@@ -6,7 +6,8 @@ export {
 } from './auth';
 export {
     searchProduct,
-    searchList
+    searchList,
+    setRouteSignal
 } from './productSearch';
 export {
     fetchList

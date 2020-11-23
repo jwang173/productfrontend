@@ -4,7 +4,8 @@ import { updateObject } from '../utility';
 const initialState = {
     product: {},
     searchList: [],
-    loading: false
+    loading: false,
+    signal:true
 };
 
 const searchProductStart = ( state, action ) => {
@@ -42,6 +43,9 @@ const searchListFail = ( state, action ) => {
     return updateObject ( state, { loading: true });
 };
 
+const setRouteSignal = ( state, action ) => {
+    return updateObject( state, { signal: action.signal})
+}
 const reducer = ( state = initialState, action ) => {
     switch( action.type ) {
         case actionTypes.SEARCH_START: return searchProductStart( state, action);
@@ -50,6 +54,7 @@ const reducer = ( state = initialState, action ) => {
         case actionTypes.SEARCH_LIST_START: return searchListStart( state, action);
         case actionTypes.SEARCH_LIST_SUCCESS: return searchListSuccess( state, action);
         case actionTypes.SEARCH_LIST_FAIL: return searchListFail( state, action);
+        case actionTypes.SET_ROUTE_SIGNAL: return setRouteSignal( state, action);
         default: return state;
     }
 };
