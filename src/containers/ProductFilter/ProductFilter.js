@@ -167,11 +167,11 @@ class ProductFilter extends Component {
                 newObj[str] = obj[key];
             } else {
                 let newKey = this.dropSpace(key);
-                console.log(key);
-                console.log(newKey)
+                // console.log(key);
+                // console.log(newKey)
                 newObj[newKey] = obj[key];
-                console.log(obj[key]);
-                console.log(newObj)
+                // console.log(obj[key]);
+                // console.log(newObj)
             }
         }
         console.log(newObj);
@@ -191,7 +191,7 @@ class ProductFilter extends Component {
                 newStr = newStr + i;
             }
         }
-        console.log(newStr);
+        // console.log(newStr);
         return newStr;
     }
     returnList = (event) => {
@@ -263,9 +263,15 @@ class ProductFilter extends Component {
         return (
             <div className="ProductFilter">
                     {authRedirect}
-                    <div >
-                    {/* <NavigationProds isAuth={this.props.isAuthenticated} /> */}
-                        <h3>Find fans</h3>
+                    <div style={{flexWrap:"nowrap"}}>
+                        Find fans 
+                        <button onClick={(event) => this.returnList(event)} style={{float:"right"}}>X</button>
+                    
+                        
+                    </div>
+                    <div>
+                        
+                        
                         <form>
                             <fieldset>
                             {/* <h3>Type</h3> */}
@@ -310,10 +316,9 @@ class ProductFilter extends Component {
                         </form>
                         
                     </div>
-                    <div>
-                        <button value="Search" onClick={() => this.clickHandler()}>Search</button>
+                    <div style={{textAlign:"right"}}>
+                        <button value="Search" onClick={() => this.clickHandler()} >Search</button>
                     </div>
-                    <button onClick={(event) => this.returnList(event)}>Return</button>
                 </div>
         );
         

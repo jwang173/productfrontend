@@ -76,4 +76,3 @@ const mapStateToProps = state => {
 };
 
 export default connect( mapStateToProps )( Layout );
-//居中auth,背景颜色

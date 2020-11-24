@@ -80,7 +80,7 @@ class NavigationProds extends Component {
                     <Logo />
                 </span>
                 <span>
-                    <NavLink to = "/" exact ="/">Home</NavLink>
+                    <NavLink to = "/logout" exact ="/">Home</NavLink>
                 </span>
                 <span>
 

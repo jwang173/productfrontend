@@ -75,20 +75,34 @@ class ProductList extends Component {
         // console.log(this.props.searchProduct)
         this.props.onSetAuthRedirectPath('/detail');
     }
+    
     render() {
         console.log(this.props.searchLoading);
         console.log(this.props.filterLoading);
         console.log(this.props.filteredList);
-        console.log(this.props.searchList)
+        console.log(this.props.searchList);
+        // let showFilteredList = (event) => {
+        //     let ProdData = this.props.filteredList;
+        //     return {List};
+        // }
         let ProdData;
-        let signal = false;
-        if((this.props.filteredList !== undefined)&&(this.props.filterLoading)) {
+        let filteredSignal = false;
+        let searchedSignal = false;
+        console.log(filteredSignal);
+        console.log(searchedSignal)
+        if((this.props.filteredList !== undefined)&&(!filteredSignal)&&(!searchedSignal)) {
             console.log("filter")
             ProdData = this.props.filteredList;
+            filteredSignal = true;
             
-        } else if((this.props.searchList !== undefined)&&(this.props.searchLoading)) {
+        } else {
+            console.log("list")
+            ProdData = this.props.prodList;
+        }
+        if((this.props.searchList !== undefined)&&(filteredSignal)&&(!searchedSignal)) {
             console.log("search");
-            ProdData = this.props.searchList;   
+            ProdData = this.props.searchList;  
+            filteredSignal = false;
         }
          else {
             console.log("list")
@@ -105,6 +119,7 @@ class ProductList extends Component {
         // console.log(this.ConvertType(ProdData));
         let List = (
             <span>
+                {/* <button onClick={(event) => clearHandler(event)}>Clear</button> */}
                 {this.ConvertType(ProdData).map(item => (
                     <div className="ProductList card" onDoubleClick={(event) => this.clickDetailHandler(event, item["name"])}>
                     <div className="ProductList container">
@@ -130,6 +145,7 @@ class ProductList extends Component {
                         
                     //     </ListPage>
                 ))}
+                
             </span>
         )
         console.log(this.props.comparedList);
@@ -159,6 +175,8 @@ class ProductList extends Component {
                     
                     </SideBar>
                     <div className="Main">
+                        {/* <button onClick={(event) => showFilteredList(event)}>Show FilteredList</button>
+                        <button>Show SearchedList</button> */}
                         {/* {authRedirect} */}
                         {List}
                     {/* <table>
