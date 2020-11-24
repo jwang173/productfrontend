@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import ProductData from '../../datasource/ProductData';
-// import ProductData from '../Data/ProductData';
 import * as actions from '../../store/actions/index';
 import axios from 'axios';
 import Aux from '../../hoc/Aux2/Aux2';
@@ -79,6 +77,9 @@ class ProductDetail extends Component {
         }
         return str2;
     }
+    returnList = (event) => {
+        this.props.onSetAuthRedirectPath('/list');
+    }
     render() {
         console.log(this.props.searchProduct)
         let product = this.props.searchProduct;
@@ -134,7 +135,7 @@ class ProductDetail extends Component {
                         {/* {res["Description"]["id"]} */}
                     
                 </span>
-                <span></span>
+                <button onClick={(event) => this.returnList(event)}>Return</button>
             </div>
         )
     }

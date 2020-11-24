@@ -2,11 +2,11 @@ import React from 'react'
 
 function FilterDetail(props) {
     return (
-        <div>
+        <div >
             <span>{props.label}</span>
-            <input id={props.label} type="number" defaultValue={props.minValue}></input>
+            <input id={props.label} type="number" defaultValue={props.minValue} onChange={props.minChange}></input>
             ----
-            <input id={props.label} type="number" defaultValue={props.maxValue}></input>
+            <input id={props.label} type="number" defaultValue={props.maxValue} onChange={props.maxChange}></input>
             {/* <span>{props.minValue}</span>
             ----
             <span>{props.maxValue}</span> */}

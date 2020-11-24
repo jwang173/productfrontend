@@ -55,6 +55,7 @@ class ProductSearch extends Component {
     }
     render() {
         console.log("Search");
+        console.log(this.props.searchLoading)
         console.log(localStorage.getItem('token'));
         console.log(this.props.authRedirectPath);
         // this.props.onSetAuthRedirectPath("/filter");
@@ -111,7 +112,8 @@ const mapStateToProps = state => {
         isAuthenticated: state.auth.token !== null,
         searchList: state.productSearch.searchList,
         signal: state.productSearch.signal,
-        authRedirectPath: state.auth.authRedirectPath
+        authRedirectPath: state.auth.authRedirectPath,
+        searchLoading: state.productSearch.loading
     }
 }
 

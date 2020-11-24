@@ -2,28 +2,6 @@ import * as actionTypes from './actionTypes';
 // import instance from '../../axios-orders';
 import Axios from 'axios';
 
-// export let getData = () => {
-//     let prodList = [];
-//     let myHeaders = new Headers({
-//         'Access-Control-Allow-Origin': '*',
-//         'Content-Type': 'text/plain'
-//     });
-//     fetch('http://127.0.0.1:8081/ProductBackend_war_exploded/helloproducts',{
-//         method:'GET',
-//         headers: myHeaders,
-//         mode: 'cors',
-//         //转或称字符串格式
-//     }).then(res => res.json()).then(
-//         data => {
-//             console.log(data);
-//             data.map(item=> {
-//                return prodList.push(item)
-//             })
-//             })
-//             console.log(prodList.length);
-//     return prodList;
-// }
-
 let Createchoice = (Arr) => {
     let len = Arr.length;
     // console.log(len);
@@ -106,7 +84,7 @@ export const fetchList = () => {
             // console.log(prodList);
             const useType = CreateList(prodList,"useType");
             tagList = useType;
-            // console.log(tagList);
+            console.log(tagList);
             dispatch(fetchListSuccess(prodList, tagList));
             
         })

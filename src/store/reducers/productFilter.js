@@ -14,7 +14,7 @@ const filterListStart = ( state, action ) => {
 
 const filterListSuccess = ( state, action ) => {
     return updateObject( state, {
-        prodList: action.prodFilterList,
+        prodFilterList: action.prodFilterList,
         loading: false
     });
 };

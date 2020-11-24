@@ -3,11 +3,8 @@ import { connect } from 'react-redux';
 
 import Aux from '../Aux2/Aux2';
 import classes from './Layout.css';
-import FilterPage from '../../components/Product/FilterPage/FilterPage'
 import ProductFilter from '../../containers/ProductFilter/ProductFilter';
 import NavigationProds from '../../components/Navigation/NavigationProds/NavigationProds';
-import productData from '../../datasource/ProductData';
-import userData from '../../datasource/UserData';
 import SideBar from '../../components/Navigation/SideBar/SideBar';
 import HomeItem from '../../components/HomeItems/HomeItem';
 

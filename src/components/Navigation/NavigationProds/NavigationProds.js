@@ -16,6 +16,7 @@ class NavigationProds extends Component {
     }
 
     componentDidMount() {
+        this.props.onProductListShown();
         // this.props.authRedirectPath = "/"
         console.log(this.props.authRedirectPath)
         if ( this.props.authRedirectPath !== '/') {
@@ -32,6 +33,7 @@ class NavigationProds extends Component {
             Type: [],
             SearchValue: value
         });
+        
     };
 
     clickHandler = (event, value) => {
@@ -51,9 +53,10 @@ class NavigationProds extends Component {
     }
     
     render() {
+        console.log(this.props.searchLoading)
         // const useType = this.CreateList("useType");
         // console.log(useType);
-        // console.log(this.props.tagList);
+        console.log(this.props.tagList);
         const useType = this.props.tagList;
         // console.log(useType);
         let SelectItems = (
@@ -101,14 +104,17 @@ const mapStateToProps = state => {
         prodList: state.productList.productList,
         isAuthenticated: state.auth.token !== null,
         searchList: state.productSearch.searchList,
-        authRedirectPath: state.auth.authRedirectPath
+        authRedirectPath: state.auth.authRedirectPath,
+        searchLoading: state.productSearch.loading
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
+        onProductListShown: () => dispatch(actions.fetchList()),
         onSearchList: (target) => dispatch(actions.searchList(target)),
-        onSetAuthRedirectPath: path => dispatch(actions.setAuthRedirectPath(path))
+        onSetAuthRedirectPath: path => dispatch(actions.setAuthRedirectPath(path)),
+
     }
 } 
 

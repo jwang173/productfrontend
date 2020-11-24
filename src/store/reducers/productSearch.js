@@ -40,7 +40,7 @@ const searchListSuccess = ( state, action ) => {
 };
 
 const searchListFail = ( state, action ) => {
-    return updateObject ( state, { loading: true });
+    return updateObject ( state, { loading: false });
 };
 
 const setRouteSignal = ( state, action ) => {

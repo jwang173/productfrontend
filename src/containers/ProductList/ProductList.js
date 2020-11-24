@@ -76,13 +76,24 @@ class ProductList extends Component {
         this.props.onSetAuthRedirectPath('/detail');
     }
     render() {
+        console.log(this.props.searchLoading);
+        console.log(this.props.filterLoading);
+        console.log(this.props.filteredList);
+        console.log(this.props.searchList)
         let ProdData;
-        if(this.props.searchList.length === 0) {
-            ProdData = this.props.prodList;
-        } else {
-            ProdData = this.props.searchList;
+        let signal = false;
+        if((this.props.filteredList !== undefined)&&(this.props.filterLoading)) {
+            console.log("filter")
+            ProdData = this.props.filteredList;
+            
+        } else if((this.props.searchList !== undefined)&&(this.props.searchLoading)) {
+            console.log("search");
+            ProdData = this.props.searchList;   
         }
-        
+         else {
+            console.log("list")
+            ProdData = this.props.prodList;
+        }
         // console.log(this.props.prodList);
         // console.log(this.props.searchList);
         // console.log(this.props.comparedList);
@@ -95,7 +106,7 @@ class ProductList extends Component {
         let List = (
             <span>
                 {this.ConvertType(ProdData).map(item => (
-                    <div className="ProductList card" onClick={(event) => this.clickDetailHandler(event, item["name"])}>
+                    <div className="ProductList card" onDoubleClick={(event) => this.clickDetailHandler(event, item["name"])}>
                     <div className="ProductList container">
                         <p style={{textAlign:"center"}}>{item["id"]}</p>
                         <p>{item["name"]}</p>
@@ -189,7 +200,10 @@ const mapStateToProps = state => {
         comparedList: state.productCompare.prodCompareList,
         signal: state.productSearch.signal,
         authRedirectPath: state.auth.authRedirectPath,
-        searchProduct: state.productSearch.product
+        searchProduct: state.productSearch.product,
+        filteredList: state.productFilter.prodFilterList,
+        searchLoading: state.productSearch.loading,
+        filterLoading: state.productFilter.loading
     }
 }
 
@@ -200,7 +214,8 @@ const mapDispatchToProps = dispatch => {
         onSearchList: (target) => dispatch(actions.searchList(target)),
         onSetAuthRedirectPath: (path) => dispatch(actions.setAuthRedirectPath(path)),
         onSetRouteSignal: (signal) => dispatch(actions.setRouteSignal(signal)),
-        onSearchProduct: (name) => dispatch(actions.searchProduct(name))
+        onSearchProduct: (name) => dispatch(actions.searchProduct(name)),
+        onFilterList:(targetObj) => dispatch(actions.filterList(targetObj))
     }
 }
-export default connect( mapStateToProps, mapDispatchToProps )( ProductList,axios);
+export default connect( mapStateToProps, mapDispatchToProps )( ProductList);

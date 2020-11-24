@@ -1,14 +1,21 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux';
-import ProductData from '../Data/ProductData';
 import * as actions from '../../store/actions/index';
 import { Redirect } from 'react-router-dom';
+import Axios from 'axios';
 // import NavigationProds from '../../components/Navigation/NavigationProds/NavigationProds'
 class ProductCompare extends Component {
     componentDidMount() {
         this.props.onSetRouteSignal(true);
+        if ( this.props.authRedirectPath !== '/') {
+            this.props.onSetAuthRedirectPath(this.props.authRedirectPath);
+        } 
+    }
+    returnList = (event) => {
+        this.props.onSetAuthRedirectPath('/list');
     }
     render() {
+        console.log(this.props.comparedList);
         let comparedList = this.props.comparedList;
         let keys = Object.keys(this.props.comparedList[0]);
         console.log(comparedList);
@@ -36,6 +43,7 @@ class ProductCompare extends Component {
                         
                     )}
                     </table>
+                    <button onClick={(event) => this.returnList(event)}>Return</button>
                 {/* <NavigationProds isAuth={this.props.isAuthenticated} /> */}
                 {/* {ProductData} */}
             </div>
@@ -64,4 +72,4 @@ const mapDispatchToProps = dispatch => {
         onSetRouteSignal: (signal) => dispatch(actions.setRouteSignal(signal))
     }
 }
-export default connect(mapStateToProps, mapDispatchToProps)(ProductCompare)
+export default connect(mapStateToProps, mapDispatchToProps)(ProductCompare,Axios)

@@ -1,6 +1,8 @@
 .ProductList {
     display: grid;
     flex-wrap: nowrap;
+    background-attachment: fixed;
+    background-color: whitesmoke;
 }
 /* .SideBar {
     justify-content: baseline;

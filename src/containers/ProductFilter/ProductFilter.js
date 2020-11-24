@@ -1,16 +1,17 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import productData from '../../datasource/ProductData';
-// import productData from '../Data/ProductData';
 import Aux from '../../hoc/Aux2/Aux2';
 // import FilterPage from '../../components/Product/FilterPage';
 import FilterPart from '../../components/Product/FilterPart/FilterPart';
 import FilterDetail from '../../components/Product/FilterDetail/FilterDetail';
 import * as actions from '../../store/actions/index';
-import { Redirect,withRouter } from 'react-router-dom';
-import Axios from 'axios';
+import { Redirect } from 'react-router-dom';
+import "./ProductFilter.css"
 // import NavigationProds from '../../components/Navigation/NavigationProds/NavigationProds';
 class ProductFilter extends Component {
+    state = {
+        targetObj: {}
+    }
     componentDidMount() {
         this.props.onProductListShown();
         this.props.onSetRouteSignal(true);
@@ -26,7 +27,7 @@ class ProductFilter extends Component {
         // console.log(len);
         // let keyLen = Object.keys(Arr[0]).length;
         let keys = Object.keys(Arr[0]);
-        console.log(keys);
+        // console.log(keys);
         let res = {};
         for(let i of keys) {
             res[i] = [];
@@ -46,22 +47,21 @@ class ProductFilter extends Component {
         for(let i of resKeys) {
             res[i] = Array.from(new Set(res[i]));
         }
-        console.log(res);
+        // console.log(res);
         resKeys = Object.keys(res);
         for(let i of resKeys) {
             if(res[i].length === 0) {
                 delete res[i];
             }
         }
-        console.log(res);
+        // console.log(res);
         return res
     }
 
     CreateList = (titlename) => {
         // let title;
         // title = titlename.toUpperCase();
-        let res = this.Createchoice(productData);
-        console.log(res);
+        let res = this.Createchoice(this.props.prodList);
         const Ans = res[titlename].map(prodKey => {
             return <span key = {prodKey}>
                 <input type="radio"  id = {prodKey} name={titlename} value={prodKey} />
@@ -70,19 +70,143 @@ class ProductFilter extends Component {
         })
         return Ans;
     }
+
+    clickRadioHandler = (event, label, stateObj) => {
+        let obj = stateObj;
+        let value = event.target.value;
+        let newLabel;
+        if(label === "Mounting Location") {
+            newLabel = "location";
+        } else {
+            newLabel = this.dropSpace(label)
+        }
+        if(value!==null) {
+            obj[newLabel] = value;
+        }
+        console.log(obj);
+        this.setState({
+            targetObj: obj
+        })
+        console.log(this.state.targetObj);
+    }
+    inputDetailMinHandler = (event, label, stateObj) => {
+        let obj = stateObj;
+        let value =event.target.value;
+        let newLabel = label + " Min";
+        if(value!==null) {
+                console.log("MinValue: "+newLabel+" "+value);
+                obj[newLabel] = value;
+        }
+        console.log(obj);
+        this.setState({
+            targetObj: obj
+        })
+        console.log(this.state.targetObj);
+    }
+    inputDetailMaxHandler = (event, label, stateObj) => {
+        let obj = stateObj;
+        let value =event.target.value;
+        let newLabel = label + " Max";
+        if(value!==null) {
+                console.log("MaxValue: "+newLabel+" "+value)
+                obj[newLabel] = value;
+        }
+        console.log(obj);
+        this.setState({
+            targetObj: obj
+        })
+        console.log(this.state.targetObj);
+    }
+    clickSelectHandler = (event, label, stateObj) => {
+        let obj = stateObj;
+        let value = event.target.value;
+        if(value!==null) {
+            obj[label] = value;
+        }
+        console.log(obj);
+        this.setState({
+            targetObj: obj
+        })
+        console.log(this.state.targetObj);
+    }
     clickHandler = () => {
+        console.log(this.submitForm(this.state.targetObj));
+        this.props.onFilterList(this.submitForm(this.state.targetObj));
+        this.props.onSetAuthRedirectPath('/list');
+    }
+    submitForm = (obj) => {
+        let baseKeys = Object.keys(obj);
+        let defaultValue = {};
+        defaultValue["modelYearMin"] = "2010";
+        defaultValue["airflowMin"] = "5000";
+        defaultValue["maxPowerMax"] = "65";
+        defaultValue["soundAtMaxSpeedMax"] = "35";
+        defaultValue["brand"] = "Haier"
+        let defKeys = Object.keys(defaultValue);
+        for(let key of defKeys) {
+            if(!baseKeys.includes(key)) {
+                obj[key] = defaultValue[key];
+            }
+        }
+        console.log(obj); 
+        return this.convertObj(obj); 
+    }
+    convertObj = (obj) => {
+        let keys = Object.keys(obj);
+        let newObj = {};
+        for(let key of keys) {
+            if(key.includes("(")) {
+                let index1 = key.indexOf("(");
+                let index2 = key.indexOf(")");
+                let str1 = key.slice(0,index1);
+                let str2 = key.slice(index2+1,key.length);
+                let str = str1+str2;
+                // console.log(str);
+                str = this.dropSpace(str);
+                // console.log(str);
+                newObj[str] = obj[key];
+            } else {
+                let newKey = this.dropSpace(key);
+                console.log(key);
+                console.log(newKey)
+                newObj[newKey] = obj[key];
+                console.log(obj[key]);
+                console.log(newObj)
+            }
+        }
+        console.log(newObj);
+        return newObj
+    }
+    dropSpace = (str) => {
+        let strArr = str.split("");
+        strArr[0] = strArr[0].toLowerCase();
+        for(let i = 0; i < str.length; i ++) {
+            if(strArr[i] === " ") {
+                strArr[i+1] = strArr[i+1].toUpperCase()
+            }
+        }
+        let newStr = ""
+        for(let i of strArr) {
+            if(i !== " ") {
+                newStr = newStr + i;
+            }
+        }
+        console.log(newStr);
+        return newStr;
+    }
+    returnList = (event) => {
         this.props.onSetAuthRedirectPath('/list');
     }
     render() {
         console.log(this.props.prodList)
-        console.log(this.props.signal);
+        // console.log(this.props.signal);
         // console.log(Product.state);
         const application = this.CreateList("application")
         const useType = this.CreateList("useType");
         const location = this.CreateList("location");
         const brand = this.CreateList("brand");
         // console.log(brand);
-        console.log(useType);
+        // console.log(useType);
         const radioItems = [
             {label:"Use Type", content: useType},
             {label:"Application", content: application},
@@ -95,12 +219,13 @@ class ProductFilter extends Component {
             {label:"Sound at max speed(dBA)", minValue:"", maxValue:"35"}
         ]
         let Filter =  (
-                        <div>
+                        <div >
                             {radioItems.map(item => (
                                 <FilterPart
                                     key = {item.label}
                                     label = {item.label}
-                                    content = {item.content} />
+                                    content = {item.content} 
+                                    click = {(event) => this.clickRadioHandler(event, item.label, this.state.targetObj)}/>
                             ))}
                         </div>
         )
@@ -111,7 +236,9 @@ class ProductFilter extends Component {
                                     key = {item.label}
                                     label = {item.label}
                                     minValue = {item.minValue}
-                                    maxValue = {item.maxValue} />
+                                    maxValue = {item.maxValue}
+                                    minChange = {(event) => this.inputDetailMinHandler(event, item.label, this.state.targetObj)}
+                                    maxChange = {(event) => this.inputDetailMaxHandler(event, item.label, this.state.targetObj)} />
                             ))
 
                             }
@@ -119,10 +246,10 @@ class ProductFilter extends Component {
         )
         let SelectItems = (
                             <span>
-                                <select name="brand">
+                                <select name="brand" onClick={(event) => this.clickSelectHandler(event, "brand", this.state.targetObj)}>
                                     
                                     {brand.map(item => (
-                                        <option value={item["key"]}>{item["key"]}</option>
+                                        <option value={item["key"]} >{item["key"]}</option>
                                     ))}
                                 </select>
                             </span>
@@ -134,9 +261,9 @@ class ProductFilter extends Component {
         }
         
         return (
-            <Aux>
+            <div className="ProductFilter">
                     {authRedirect}
-                    <div>
+                    <div >
                     {/* <NavigationProds isAuth={this.props.isAuthenticated} /> */}
                         <h3>Find fans</h3>
                         <form>
@@ -147,9 +274,9 @@ class ProductFilter extends Component {
                         <span>
                             Model Year: 
                                 <span>
-                                    <input id="number" type="number" defaultValue="2010"/>
+                                    <input id="Model Year" type="number" defaultValue="2010" onChange = {(event) => this.inputDetailMinHandler(event, "Model Year", this.state.targetObj)}/>
                                     ----
-                                    <input id="number2" type="number2" defaultValue="" />
+                                    <input id="Model Year" type="number2" defaultValue="" onChange = {(event) => this.inputDetailMaxHandler(event, "Model Year", this.state.targetObj)}/>
                                 </span>
                         </span>
                             </fieldset>
@@ -186,7 +313,8 @@ class ProductFilter extends Component {
                     <div>
                         <button value="Search" onClick={() => this.clickHandler()}>Search</button>
                     </div>
-                </Aux>
+                    <button onClick={(event) => this.returnList(event)}>Return</button>
+                </div>
         );
         
     }
@@ -210,8 +338,9 @@ const mapDispatchToProps = dispatch => {
         onProductListShown: () => dispatch(actions.fetchList()),
         onSearchList: (target) => dispatch(actions.searchList(target)),
         onSetAuthRedirectPath: (path) => dispatch(actions.setAuthRedirectPath(path)),
-        onSetRouteSignal: (signal) => dispatch(actions.setRouteSignal(signal))
+        onSetRouteSignal: (signal) => dispatch(actions.setRouteSignal(signal)),
+        onFilterList:(targetObj) => dispatch(actions.filterList(targetObj))
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)( ProductFilter,Axios);
+export default connect(mapStateToProps, mapDispatchToProps)( ProductFilter);
